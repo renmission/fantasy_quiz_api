@@ -4,13 +4,11 @@ const questionController = require('./../controllers/questionController');
 
 router
   .route('/')
-  .get(questionController.getAllQuestion)
-  .post(questionController.createQuestion);
+  .get(questionController.getQuestion)
+  .post(questionController.postQuestion);
 
 router
-  .route('/:id')
-  .get(questionController.getQuestion)
-  .patch(questionController.updateQuestion)
-  .delete(questionController.deleteQuestion);
+  .route("/results")
+  .post(questionController.postResults);
 
 module.exports = router;

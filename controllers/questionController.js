@@ -1,28 +1,63 @@
-const Question = require('../models/questionModel');
-const factory = require('./handlerFactory');
+const Question = require("../models/questionModel");
+const Results = require("../models/resultsModel");
+const Answer = require("../models/answerModel");
+const catchAsync = require("../utils/catchAsync");
 
-exports.getAllQuestion = factory.getAll(Question);
-exports.getQuestion = factory.getOne(Question);
-exports.createQuestion = factory.createOne(Question);
-exports.updateQuestion = factory.updateOne(Question);
-exports.deleteQuestion = factory.deleteOne(Question);
+// get question
+const getQuestion = catchAsync(async (req, res) => {
+  try {
+    const question = await Question.find();
 
+    res.status(200).json(question);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
-const postResults = asyncHandler(async (req, res) => {
+// post question
+const postQuestion = catchAsync(async (req, res) => {
+  try {
+    const options = req.body.option.map((opt) => {
+      return {
+        questionID: opt.questionID,
+        value: opt.value,
+        letter: opt.letter,
+      };
+    });
+    const question = await Question.create({
+      id: req.body.id,
+      question: req.body.question,
+      option: options,
+      correctAnswer: req.body.correctAnswer,
+      type: req.body.type,
+      weight: req.body.weight,
+    });
+
+    res.status(201).json(question);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// results post
+const postResults = catchAsync(async (req, res) => {
   try {
     let score = 0;
     const answerBody = req.body;
-    console.log("req.bod", answerBody);
+    // console.log("req.bod", answerBody);
     const QuestionModel = await Question.find({}, "+correctAnswer +weight");
     const compareAnswer = answerBody.map((item) => {
       const compareQuestion = QuestionModel.find(
-        (comparator) => comparator.id === item.id
+        (comparator) => comparator.id === item.answer.questionID
       );
-      if (compareQuestion.correctAnswer === item.questionID) {
-        score += compareAnswer.weight;
-        return { ...item, correct: true };
+      const correctAnswer = compareQuestion.correctAnswer;
+      const answer = item.answer.questionID;
+      console.log(correctAnswer === answer);
+      if (answer === correctAnswer) {
+        score += compareQuestion.weight;
+        return { ...item.answer, correct: true };
       } else {
-        return { ...item, correct: false };
+        return { ...item.answer, correct: false };
       }
     });
 
@@ -45,3 +80,10 @@ const postResults = asyncHandler(async (req, res) => {
     res.status(201).json({ newResults, compareAnswer });
   } catch (error) {}
 });
+
+module.exports = {
+  getQuestion,
+  postQuestion,
+  postResults,
+};
+

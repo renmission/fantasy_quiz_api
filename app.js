@@ -6,8 +6,6 @@ const AppError = require('./utils/appError');
 // Routers
 const userRouter = require('./routes/userRoutes');
 const questionRouter = require('./routes/questionRoutes');
-const resultRouter = require('./routes/resultRoutes');
-const testRouter = require('./routes/testRoutes');
 
 const app = express();
 
@@ -26,9 +24,8 @@ app.use(cookieParser());
 
 // Routes
 app.use('/api/v1/users', userRouter);
-app.use('/api/v1/results', resultRouter);
+app.use('/api/v1/answers', questionRouter);
 app.use('/api/v1/questions', questionRouter);
-app.use('/api/v1/tests', testRouter);
 
 
 // handle undefined routes
