@@ -4,8 +4,6 @@ const cookieParser = require('cookie-parser');
 const AppError = require('./utils/appError');
 
 // Routers
-const productRouter = require('./routes/productRoutes');
-const cartRouter = require('./routes/cartRoutes');
 const userRouter = require('./routes/userRoutes');
 const questionRouter = require('./routes/questionRoutes');
 const resultRouter = require('./routes/resultRoutes');
