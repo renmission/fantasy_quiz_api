@@ -5,13 +5,19 @@ const resultModel = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "User",
   },
-  result: { type: Array, default: [] },
-  attempts: { type: Number, default: 0 },
-  points: { type: Number, default: 0 },
-  achived: { type: String, default: "" },
+  quizHistory: [
+    {
+      testID: Number,
+      score: Number,
+      createdAt: {
+        type: Date,
+        default: Date.now(),
+      },
+    },
+  ],
   createdAt: {
     type: Date,
-    default: Date.now()
+    default: Date.now(),
   },
 });
 

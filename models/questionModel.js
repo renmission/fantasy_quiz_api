@@ -1,18 +1,24 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const questionSchema = new mongoose.Schema({
-    question:  String,
-    correctAns: [String],
-    incorrectAns: [String],
-    options: [String],
-    mark: Number,
-    createdAt: {
-        type: Date,
-        default: Date.now(),
-        select: false
-    }
+  name: String,
+  question: String,
+  correctAnswer: { type: Number, select: false },
+  options: [
+    {
+      questionID: { type: Number },
+      value: { type: String },
+      letter: { type: String },
+    },
+  ],
+  weight: Number,
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+    select: false,
+  },
 });
 
-const Question = mongoose.model('Question', questionSchema);
+const Question = mongoose.model("Question", questionSchema);
 
 module.exports = Question;
