@@ -29,16 +29,11 @@ exports.postResults = catchAsync(async (req, res) => {
         }
       });
   
-      const newResults = new Results({
+      const newResults = new Result({
         id: req.id,
         answer: compareAnswer,
         score: score,
       });
-  
-      // const answers = new Answer({
-      //   id: req.id,
-      //   answer: compareAnswer,
-      // });
   
       await newResults.save();
       // await answers.save();
