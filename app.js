@@ -6,6 +6,7 @@ const AppError = require('./utils/appError');
 // Routers
 const userRouter = require('./routes/userRoutes');
 const questionRouter = require('./routes/questionRoutes');
+const resultRouter = require('./routes/resultRoutes');
 
 const app = express();
 
@@ -24,7 +25,7 @@ app.use(cookieParser());
 
 // Routes
 app.use('/api/v1/users', userRouter);
-app.use('/api/v1/answers', questionRouter);
+app.use('/api/v1/results', resultRouter);
 app.use('/api/v1/questions', questionRouter);
 
 

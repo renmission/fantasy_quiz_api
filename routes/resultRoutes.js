@@ -3,11 +3,15 @@ const router = express.Router();
 const authController = require('./../controllers/authController');
 const resultController = require("./../controllers/resultController");
 
+
 router
   .route("/")
-  .get(authController.isLoggedIn, resultController.getAllResult)
-  .post(authController.isLoggedIn, resultController.createResult);
+  .post(resultController.createResult)
+  .get(resultController.getAllResult)
 
-router.route("/:id").get(authController.isLoggedIn, resultController.getResult);
+router
+  .route("/:id")
+  .post(resultController.updateResult)
+  .get(resultController.deleteResult)
 
 module.exports = router;

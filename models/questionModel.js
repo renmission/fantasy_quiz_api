@@ -12,7 +12,7 @@ const questionSchema = mongoose.Schema({
   ],
   correctAnswer: { type: Number, select: false },
   type: { type: String },
-  weight: { type: Number, select: false },
+  weight: { type: Number },
 });
 
 module.exports = mongoose.model("Question", questionSchema);

@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const answerSchema = mongoose.Schema({
   id: { type: Number },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+  },
   answer: [
     {
       questionID: { type: Number },

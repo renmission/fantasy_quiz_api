@@ -7,8 +7,4 @@ router
   .get(questionController.getQuestion)
   .post(questionController.postQuestion);
 
-router
-  .route("/results")
-  .post(questionController.postResults);
-
 module.exports = router;

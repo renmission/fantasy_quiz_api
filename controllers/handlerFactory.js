@@ -5,7 +5,7 @@ const APIFeatures = require('../utils/APIFeatures');
 exports.getAll = Model =>
   catchAsync(async (req, res, next) => {
     let filter = {};
-    if (req.params.productId) filter = { product: req.params.productId };
+    if (req.params.questionID) filter = { product: req.params.questionID };
 
     const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
@@ -23,6 +23,8 @@ exports.getAll = Model =>
       },
     });
   });
+
+  
 
 exports.getOne = Model => catchAsync(async (req, res, next) => {
     let query = Model.findById(req.params.id);
